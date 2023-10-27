@@ -2,7 +2,7 @@
 // setting in config.js
 /*
 • Team Tabrak Lurus
-• WhyDepin-Darwin-KiiCode
+• WhyDepin-MannHost-Darwin-KiiCode
 */
 require('../config')
 const {
@@ -22,8 +22,8 @@ var config = require("../config.js")
 const func = require("../lib/function.js")
 
 //singkat
-let evalOwn = ['6283896302781@s.whatsapp.net', '6283877118785@s.whatsapp.net']
-var icon = fs.readFileSync("./src/dep.jpg")
+let evalOwn = ['62896296205744@s.whatsapp.net', '62896296205744@s.whatsapp.net']
+var icon = fs.readFileSync("./src/yamada.jpg")
 
 module.exports = async(sock, m, store) => {
 try {
@@ -131,8 +131,28 @@ _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 │ _*Name:*_ _${m.pushName}_
 │ _*Number:*_ _${sender.split('@')[0]}_
 ├─────────────────────
-│ _*Bot Name:*_ _Bens - MD_
-│ _*Created By:*_ _Team Tabrak Lurus_
+│ _*Bot Name:*_ _Yamada_
+│ _*Created By:*_ _MannHost_
+└─────────────────────
+Show AllMenu: ${prefix}allmenu
+About Me: ${prefix}about
+> (Eval)
+$ (Exec)`
+
+sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: 'Bens - MD', body: '© Team Tabrak Lurus', thumbnail: fs.readFileSync("./src/dep.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+}
+break
+case prefix+"allmenu": case prefix+"menuall": {
+                let text = `
+_*>Hello User<*_
+_Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
+
+┌─────────────────────
+│ _*Name:*_ _${m.pushName}_
+│ _*Number:*_ _${sender.split('@')[0]}_
+├─────────────────────
+│ _*Bot Name:*_ _Yamada_
+│ _*Created By:*_ _MannHost_
 └─────────────────────
 
 _*-MAIN MENU-*_
