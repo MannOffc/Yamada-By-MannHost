@@ -29,8 +29,10 @@
 * [`setting`](https://github.com/MannOffc/Yamada-By-MannHost/edit/main/config.js)
 
   
-## Thanks
+## Thanks For
 * [`Baileys`](https://github.com/adiwajshing/Baileys)
+* MannHost
+* WhyDepin
 * Tabrak Lurus Team
   
   
