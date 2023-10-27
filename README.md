@@ -1,6 +1,6 @@
 </div>
 <p align="center">
-  <a href="https://github.com/MannOffc/Yamada-By-MannHost.git"><img title="Script" src="https://img.shields.io/badge/Author-TabrakLurus-red.svg?style=for-the-badge&logo=github" /></a>
+  <a href="https://github.com/MannOffc/Yamada-By-MannHost.git"><img title="Script" src="https://img.shields.io/badge/Author-MannHost-red.svg?style=for-the-badge&logo=github" /></a>
   <h4 align="center">
 </h4>
 </p>
