@@ -2,7 +2,7 @@
 // setting in config.js
 /*
 • Team Tabrak Lurus
-• WhyDepin-MannHost-Darwin-KiiCode
+• MannHost-WhyDepin-Darwin-KiiCode
 */
 require('../config')
 const {
@@ -25,11 +25,14 @@ const func = require("../lib/function.js")
 let evalOwn = ['62896296205744@s.whatsapp.net', '62896296205744@s.whatsapp.net']
 var icon = fs.readFileSync("./src/yamada.jpg")
 
-module.exports = async(sock, m, store) => {
+module.exports = MannHost = async (MannHost, m, chatUpdate, store) => {
 try {
     if (!m) return
    if (m.isBaileys) return
- 
+const { type, quotedMsg, mentioned, now, fromMe } = m
+const gakbisaowner = `${ownernumber}@s.whatsapp.net`
+const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
+const budy = (typeof m.text == 'string' ? m.text : '')
 const content = JSON.stringify(m.message)
 const from = m.key.remoteJid
 const chats = (m.type === 'conversation' && m.message.conversation) ? m.message.conversation : (m.type == 'imageMessage') && m.message.imageMessage.caption ? m.message.imageMessage.caption : (m.type == 'documentMessage') && m.message.documentMessage.caption ? m.message.documentMessage.caption : (m.type == 'videoMessage') && m.message.videoMessage.caption ? m.message.videoMessage.caption : (m.type == 'extendedTextMessage') && m.message.extendedTextMessage.text ? m.message.extendedTextMessage.text : (m.type == 'buttonsResponseMessage' && m.message.buttonsResponseMessage.selectedButtonId) ? m.message.buttonsResponseMessage.selectedButtonId : (m.type == 'templateButtonReplyMessage') && m.message.templateButtonReplyMessage.selectedId ? m.message.templateButtonReplyMessage.selectedId : '' 
@@ -58,9 +61,26 @@ const groupMembers = isGroup ? groupMetadata.participants : ''
 const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const ppgc = await conn.profilePictureUrl(from, 'image')
 const ppuser = await conn.profilePictureUrl(sender, 'image')
-const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
+const isBotGroupAdmins = groupAdmins.includes(botNumber) : false
 const isGroupAdmins = groupAdmins.includes(sender)
-        
+const MannTheCreator = [botNumber, ...owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+const MannTheDeveloper = m.sender == botNumber ? true : false
+const text = q = args.join(" ")
+const quoted = m.quoted ? m.quoted : m
+const mime = (quoted.msg || quoted).mimetype || ''
+const isMedia = /image|video|sticker|audio/.test(mime)
+const isImage = (type == 'imageMessage')
+const isVideo = (type == 'videoMessage')
+const isAudio = (type == 'audioMessage')
+const isSticker = (type == 'stickerMessage')
+const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
+const isQuotedLocation = type === 'extendedTextMessage' && content.includes('locationMessage')
+const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
+const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
+const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+const isQuotedContact = type === 'extendedTextMessage' && content.includes('contactMessage')
+const isQuotedDocument = type === 'extendedTextMessage' && content.includes('documentMessage')
+	
 //baris function
 const reply = (teks) => {
 			sock.sendMessage(from, { text: teks }, { quoted: m })
@@ -135,9 +155,7 @@ _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 │ _*Created By:*_ _MannHost_
 └─────────────────────
 Show AllMenu: ${prefix}allmenu
-About Me: ${prefix}about
-> (Eval)
-$ (Exec)`
+About Me: ${prefix}about`
 
 sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: 'Bens - MD', body: '© Team Tabrak Lurus', thumbnail: fs.readFileSync("./src/dep.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
@@ -153,15 +171,23 @@ _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 ├─────────────────────
 │ _*Bot Name:*_ _Yamada_
 │ _*Created By:*_ _MannHost_
+│ _*Baileys: Multi Baileys
+│ _*Version Bot: ${global.versisc}
 └─────────────────────
 
-_*-MAIN MENU-*_
-${prefix}owner
-${prefix}sc
-${prefix}menfes
+_*-GROUP MENU-*_
+${prefix}liston
+${prefix}promote
+${prefix}demote
+${prefix}hidetag
+${prefix}tagall
 
 _*-OWNER MENU-*_
+${prefix}bc
 ${prefix}broadcast
+${prefix}listpc
+${prefix}listgc
+${prefix}manntag
 > (Eval)
 $ (Exec)`
 
@@ -196,6 +222,108 @@ let txt = `_Hai, ada secret message nih_\nDari: _*${b}*_\nPesan: _*${n}*_`
 sock.sendMessage(`${y}@s.whatsapp.net`, {text: txt}, {quoted:m})
 reply('success')
 } 
+break
+
+////FiturGcOnly////
+
+case prefix+'listpc': {
+if (!MannTheCreator) return reply(mess.owner)
+let anulistp = await store.chats.all().filter(v => v.id.endsWith('.net')).map(v => v.id)
+let teks = `*🔒 LIST PERSONAL CHAT*\n\n`
+teks += `*📱 Total Chat :* ${anulistp.length} Chat\n\n`
+for (let i of anulistp) {
+let nama = store.messages[i].array[0].pushName
+teks += `📛 *Nama :* ${nama}\n`
+teks += `👤 *User :* @${i.split('@')[0]}\n`
+teks += `🔗 *Link Chat :* https://wa.me/${i.split('@')[0]}\n\n`
+teks += `────────────────────────\n\n`
+}
+MannHost.sendTextWithMentions(m.chat, teks, m)
+}
+break
+case prefix+'listgc': {
+if (!MannTheCreator) return reply(mess.owner)
+let anulistg = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
+let teks = `👥 *LIST GROUP CHAT*\n\n`
+teks += `📱 Total Group : ${anulistg.length} Group\n\n`
+for (let i of anulistg) {
+let metadata = await MannHost.groupMetadata(i)
+teks += `📛 *Name :* ${metadata.subject}\n`
+teks += `👤 *Owner Grup :* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n`
+teks += `🌱 *ID :* ${metadata.id}\n`
+teks += `⏰ *Dibuat :* ${moment(metadata.creation * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n`
+teks += `👥 *Member :* ${metadata.participants.length}\n\n`
+teks += `────────────────────────\n\n`
+}
+MannHost.sendTextWithMentions(m.chat, teks, m)
+l}
+break
+case prefix+'listonline': case prefix+'liston': {
+if (!isGroup) return m.reply(mess.group)
+let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
+let online = [...Object.keys(store.presences[id]), botNumber]
+MannHost.sendText(m.chat, '⏰ List Online:\n\n' + online.map(v => '🌱 @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
+}
+break
+case prefix+'promote': {
+if (!isGroup) return m.reply(mess.group)
+if (!isGroupAdmins && !MannTheCreator) return m.reply(mess.admin)
+if (!isBotGroupAdmins) return m.reply(mess.botAdmin)
+let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await MannHost.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+}
+break
+case prefix+'demote': {
+if (!isGroup) return m.reply(mess.group)
+if (!isGroupAdmins && !MannTheCreator) return m.reply(mess.admin)
+if (!isBotGroupAdmins) return m.reply(mess.botAdmin)
+let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await MannHost.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+}
+break
+case prefix+'hidetag': {
+if (!isGroup) return m.reply(mess.group)
+if (!isGroupAdmins && !MannTheCreator) return m.reply(mess.admin)
+if (!isBotGroupAdmins) return m.reply(mess.botAdmin)
+MannHost.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
+}
+break
+case prefix+'manntag': {
+if (!MannTheCreator) return reply(mess.owner)
+if (!isGroup) return m.reply(mess.group)
+if (!isPrem) return m.reply(mess.prem)
+MannHost.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
+}
+break
+case prefix+'tagall': {
+if (!isGroup) return m.reply(mess.group)
+if (!isGroupAdmins && !MannTheCreator) return m.reply(mess.admin)
+if (!isBotGroupAdmins) return m.reply(mess.botAdmin)
+me = m.sender
+let teks = `╚»˙·٠👥 Tag All By Admin 👥٠·˙«╝ 
+ 
+ 🏷️ *Tagger :*  @${me.split('@')[0]}
+ ✉️️ *Message : ${q ? q : 'no message'}*\n\n`
+for (let mem of participants) {
+teks += `@${mem.id.split('@')[0]}\n`
+}
+MannHost.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
+}
+break
+case prefix+'linkgroup': case prefix+'linkgc': {
+if (!isGroup) return m.reply(mess.group)
+if (!isBotGroupAdmins) return m.reply(mess.botAdmin)
+let response = await MannHost.groupInviteCode(m.chat)
+MannHost.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\n👾 Link Group : ${groupMetadata.subject}`, m, { detectLink: true })
+}
+break
+case prefix+'join': {
+if (!MannTheCreator) return m.reply(mess.owner)
+if (!text) return m.reply(`Contoh ${prefix+command} linkgc`)
+if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return m.reply('Link Invalid!')
+let result = args[0].split('https://chat.whatsapp.com/')[1]
+await MannHost.groupAcceptInvite(result).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+}
 break
 
 }
