@@ -8,7 +8,7 @@
 # TERMUX INSTALLATION
 ```bash
 > git clone https://github.com/MannOffc/Yamada-By-MannHost
-> cd baileys-bot-whatsapp 
+> cd Yamada-By-MannHost
 > npm i
 ```
 ## Connect
