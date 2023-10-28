@@ -157,7 +157,7 @@ _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 Show AllMenu: ${prefix}allmenu
 About Me: ${prefix}about`
 
-MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: 'Bens - MD', body: '© Team Tabrak Lurus', thumbnail: fs.readFileSync("./src/dep.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnail: fs.readFileSync("./src/yamada.jpg"), sourceUrl: '${global.medsos', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
 break
 case prefix+"allmenu": case prefix+"menuall": {
@@ -195,7 +195,7 @@ ${prefix}manntag
 > (Eval)
 $ (Exec)`
 
-MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnail: fs.readFileSync("./src/yamada.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnail: fs.readFileSync("./src/yamada.jpg"), sourceUrl: '${global.medsos}', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
 break
 case prefix+'about': {
@@ -204,15 +204,15 @@ case prefix+'about': {
  *•Author:* MannHost
  *•Baileys:* Multi-Baileys
  *•Comunity:* Tabrak Lurus Team`
-MannHost.sendMessage(from, {text: anu, contexInfo: { externalAdReply
-	
+MannHost.sendMessage(from, {text: anu, contexInfo: { externalAdReply: { title: '${global.botname}', body: '© MannHost', thumbnail: fs.readFileSync("./src/yamada.jpg"), sourceUrl: '${global.medsos}', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+}
 break
 case prefix+'sc': {
   m.reply('_*Script: https://github.com/MannOffc/Yamada-By-MannHost*_')
   break
 }
  case prefix+"owner": {
-   MannHost.sendContact(from, `${global.owner}@s.whatsapp.net`, 'WhyDepin', m)
+   MannHost.sendContact(from, `${global.owner}@s.whatsapp.net`, 'MannHost', m)
  }
  break
  
