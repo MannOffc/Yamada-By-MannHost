@@ -143,7 +143,7 @@ MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title
 }
 break;
 		
-case prefix+'allmenu':
+case prefix+'allmenu': {
 let text = `
 _*>Hello User<*_
 _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
