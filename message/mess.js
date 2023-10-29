@@ -139,10 +139,10 @@ _*•Show AllMenu:*_ .allmenu
 _*•Show About:*_ .about
 > (Eval)
 $ (Exec)`
-
 MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
-break
+break;
+		
 case prefix+'allmenu':
 let text = `
 _*>Hello User<*_
@@ -169,7 +169,6 @@ _*-OWNER MENU-*_
 ${prefix}broadcast
 > (Eval)
 $ (Exec)`
-
 MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
 break
@@ -180,15 +179,17 @@ _*•Author:*_ _*MannHost & Team Tabrak Lurus
 _*This Simple Bot WhatsApp For You*_`
 MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
-break
+break;
+	
 case prefix+'sc': {
   reply('_*Script: https://github.com/MannOffc/Yamada-By-MannHost*_')
-  break
 }
+break;
+	
  case prefix+"owner": {
    sendContact(from, `${global.owner}@s.whatsapp.net`, 'MannHost', m)
- }
- break
+}
+break;
  
 case prefix+'bc': case prefix+'broadcast':
 if (!isOwner) return reply('only owner')
@@ -198,7 +199,7 @@ var data = await store.chats.all()
  MannHost.sendMessage(i.id, { text: `_*🚨Broadcast🚨*_\n\n${q}` })
 await func.sleep(1000)
  }
-break
+break;
 
 case prefix+'menfes': case prefix+'confes': {
 if (!q) return reply('Example : ${prefix + command} 62xxx|nama|pesan')
@@ -209,7 +210,7 @@ let txt = `_Hai, ada secret message nih_\nDari: _*${b}*_\nPesan: _*${n}*_`
 MannHost.sendMessage(`${y}@s.whatsapp.net`, {text: txt}, {quoted:m})
 reply('mess.success')
 } 
-break
+break;
 
 }
  } catch (e) {
