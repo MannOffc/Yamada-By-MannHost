@@ -47,17 +47,17 @@ const command = chats.toLowerCase().split(' ')[0] || ''
 const isCmd = command.startsWith(prefix)
 const quoted = m.isQuoted ? m.quoted : m
 const q = chats.slice(command.length + 1, chats.length)
-const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net'
+const botNumber = MannHost.user.id.split(':')[0] + '@s.whatsapp.net'
 const isGroup = m.key.remoteJid.endsWith('@g.us')
 const sender = isGroup ? (m.key.participant ? m.key.participant : m.participant) : m.key.remoteJid
 const isOwner = global.owner == sender ? true : [`${global.owner}@s.whatsapp.net`].includes(sender) ? true : false
-const groupMetadata = isGroup ? await sock.groupMetadata(from) : ''
+const groupMetadata = isGroup ? await MannHost.groupMetadata(from) : ''
 const groupName = isGroup ? groupMetadata.subject : ''
 const groupId = isGroup ? groupMetadata.id : ''
 const groupMembers = isGroup ? groupMetadata.participants : ''
 const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
-const ppgc = await conn.profilePictureUrl(from, 'image')
-const ppuser = await conn.profilePictureUrl(sender, 'image')
+const ppgc = await MannHost.profilePictureUrl(from, 'image')
+const ppuser = await MannHost.profilePictureUrl(sender, 'image')
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 const isGroupAdmins = groupAdmins.includes(sender)
         
@@ -73,7 +73,7 @@ const vcard = 'BEGIN:VCARD\n'
 			+ 'ORG:;\n'
 			+ 'TEL;type=CELL;type=VOICE;waid=' + number + ':+' + number + '\n'
 			+ 'END:VCARD'
-			return sock.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: m })
+			return MannHost.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: m })
 		}
 const sendMess = (hehe, teks) => {
 	MannHost.sendMessage(hehe, { text: teks })
@@ -207,7 +207,7 @@ b = q.split('|')[1]
 n = q.split('|')[2]
 let txt = `_Hai, ada secret message nih_\nDari: _*${b}*_\nPesan: _*${n}*_`
 MannHost.sendMessage(`${y}@s.whatsapp.net`, {text: txt}, {quoted:m})
-reply('success')
+reply('mess.success')
 } 
 break
 
