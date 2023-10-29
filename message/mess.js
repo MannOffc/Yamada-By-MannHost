@@ -22,10 +22,10 @@ var config = require("../config.js")
 const func = require("../lib/function.js")
 
 //singkat
-let evalOwn = ['62896296205744@s.whatsapp.net', '62896296205744@s.whatsapp.net']
-var icon = fs.readFileSync("./src/dep.jpg")
+let evalOwn = ['6283896302781@s.whatsapp.net', '6283877118785@s.whatsapp.net']
+var icon = fs.readFileSync("./src/yamada.jpg")
 
-module.exports = async(MannHost, m, store) => {
+module.exports = async(sock, m, store) => {
 try {
     if (!m) return
    if (m.isBaileys) return
@@ -33,13 +33,13 @@ try {
 const content = JSON.stringify(m.message)
 const from = m.key.remoteJid
 const chats = (m.type === 'conversation' && m.message.conversation) ? m.message.conversation : (m.type == 'imageMessage') && m.message.imageMessage.caption ? m.message.imageMessage.caption : (m.type == 'documentMessage') && m.message.documentMessage.caption ? m.message.documentMessage.caption : (m.type == 'videoMessage') && m.message.videoMessage.caption ? m.message.videoMessage.caption : (m.type == 'extendedTextMessage') && m.message.extendedTextMessage.text ? m.message.extendedTextMessage.text : (m.type == 'buttonsResponseMessage' && m.message.buttonsResponseMessage.selectedButtonId) ? m.message.buttonsResponseMessage.selectedButtonId : (m.type == 'templateButtonReplyMessage') && m.message.templateButtonReplyMessage.selectedId ? m.message.templateButtonReplyMessage.selectedId : '' 
-if (MannHost.multi) {
+if (sock.multi) {
 var prefix = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?#$%^&.+-,\/\\©^]/.test(chats) ? chats.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?#$%^&.+-,\/\\©^]/gi) : '#'
 } else {
-if (MannHost.nopref) {
+if (sock.nopref) {
 prefix = ''
 } else {
-prefix = MannHost.prefa 
+prefix = sock.prefa
 }
 }
 const args = chats.split(' ')
@@ -47,23 +47,23 @@ const command = chats.toLowerCase().split(' ')[0] || ''
 const isCmd = command.startsWith(prefix)
 const quoted = m.isQuoted ? m.quoted : m
 const q = chats.slice(command.length + 1, chats.length)
-const botNumber = MannHost.user.id.split(':')[0] + '@s.whatsapp.net'
+const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net'
 const isGroup = m.key.remoteJid.endsWith('@g.us')
 const sender = isGroup ? (m.key.participant ? m.key.participant : m.participant) : m.key.remoteJid
 const isOwner = global.owner == sender ? true : [`${global.owner}@s.whatsapp.net`].includes(sender) ? true : false
-const groupMetadata = isGroup ? await MannHost.groupMetadata(from) : ''
+const groupMetadata = isGroup ? await sock.groupMetadata(from) : ''
 const groupName = isGroup ? groupMetadata.subject : ''
 const groupId = isGroup ? groupMetadata.id : ''
 const groupMembers = isGroup ? groupMetadata.participants : ''
 const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
-const ppgc = await MannHost.profilePictureUrl(from, 'image')
-const ppuser = await MannHost.profilePictureUrl(sender, 'image')
+const ppgc = await conn.profilePictureUrl(from, 'image')
+const ppuser = await conn.profilePictureUrl(sender, 'image')
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 const isGroupAdmins = groupAdmins.includes(sender)
         
 //baris function
 const reply = (teks) => {
-			MannHost.sendMessage(from, { text: teks }, { quoted: m })
+			sock.sendMessage(from, { text: teks }, { quoted: m })
 	}
 const sendContact = (jid, numbers, name, quoted, mn) => {
 let number = numbers.replace(/[^0-9]/g, '')
@@ -73,14 +73,14 @@ const vcard = 'BEGIN:VCARD\n'
 			+ 'ORG:;\n'
 			+ 'TEL;type=CELL;type=VOICE;waid=' + number + ':+' + number + '\n'
 			+ 'END:VCARD'
-			return MannHost.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: m })
+			return sock.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: m })
 		}
 const sendMess = (hehe, teks) => {
-	MannHost.sendMessage(hehe, { text: teks })
+	sock.sendMessage(hehe, { text: teks })
 }
 
 const sendText = (from, teks) => {
-	MannHost.sendMessage(from, { text: teks })
+	sock.sendMessage(from, { text: teks })
 }
 
 if (chats.startsWith("=> ") && isOwner && evalOwn) {
@@ -131,28 +131,7 @@ _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 │ _*Name:*_ _${m.pushName}_
 │ _*Number:*_ _${sender.split('@')[0]}_
 ├─────────────────────
-│ _*Bot Name:*_ _${global.botname}_
-│ _*Created By:*_ _Team Tabrak Lurus_
-└─────────────────────
-_*•Owner:*_ ${global.owner}
-_*•Show AllMenu:*_ .allmenu
-_*•Show About:*_ .about
-> (Eval)
-$ (Exec)`
-MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
-}
-break;
-		
-case prefix+'allmenu': {
-let text = `
-_*>Hello User<*_
-_Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
-
-┌─────────────────────
-│ _*Name:*_ _${m.pushName}_
-│ _*Number:*_ _${sender.split('@')[0]}_
-├─────────────────────
-│ _*Bot Name:*_ _${global.botname}_
+│ _*Bot Name:*_ _Bens - MD_
 │ _*Created By:*_ _Team Tabrak Lurus_
 └─────────────────────
 
@@ -161,45 +140,32 @@ ${prefix}owner
 ${prefix}sc
 ${prefix}menfes
 
-_*-OTHER MENU-*_
-${prefix}menu
-${prefix}about
-
 _*-OWNER MENU-*_
 ${prefix}broadcast
 > (Eval)
 $ (Exec)`
-MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+
+sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: 'Bens - MD', body: '© Team Tabrak Lurus', thumbnail: fs.readFileSync("./src/dep.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
 break
-case prefix+'about':
-let text = `
-_*•BotName:*_ _*${global.botname}*_
-_*•Author:*_ _*MannHost & Team Tabrak Lurus
-_*This Simple Bot WhatsApp For You*_`
-MannHost.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© MannHost', thumbnailUrl: "https://telegra.ph/file/8305331c272fa4de38a7f.jpg", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
-}
-break;
-	
 case prefix+'sc': {
-  reply('_*Script: https://github.com/MannOffc/Yamada-By-MannHost*_')
+  reply('_*Script: https://github.com/WhyDepin/baileys-bot-whatsapp*_')
+  break
 }
-break;
-	
  case prefix+"owner": {
-   sendContact(from, `${global.owner}@s.whatsapp.net`, 'MannHost', m)
-}
-break;
+   sendContact(from, `${global.owner}@s.whatsapp.net`, 'WhyDepin', m)
+ }
+ break
  
 case prefix+'bc': case prefix+'broadcast':
 if (!isOwner) return reply('only owner')
 if (args.length < 2) return reply(`Masukkan isi pesannya`)
 var data = await store.chats.all()
  for (let i of data) {
- MannHost.sendMessage(i.id, { text: `_*🚨Broadcast🚨*_\n\n${q}` })
+ sock.sendMessage(i.id, { text: `_*🚨Broadcast🚨*_\n\n${q}` })
 await func.sleep(1000)
  }
-break;
+break
 
 case prefix+'menfes': case prefix+'confes': {
 if (!q) return reply('Example : ${prefix + command} 62xxx|nama|pesan')
@@ -207,10 +173,10 @@ y = q.split('|')[0]
 b = q.split('|')[1]
 n = q.split('|')[2]
 let txt = `_Hai, ada secret message nih_\nDari: _*${b}*_\nPesan: _*${n}*_`
-MannHost.sendMessage(`${y}@s.whatsapp.net`, {text: txt}, {quoted:m})
-reply('mess.success')
+sock.sendMessage(`${y}@s.whatsapp.net`, {text: txt}, {quoted:m})
+reply('success')
 } 
-break;
+break
 
 }
  } catch (e) {
