@@ -128,11 +128,30 @@ _*>Hello User<*_
 _Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
 
 ┌─────────────────────
-│ _*Name:*_ _${m.pushName}_
-│ _*Number:*_ _${sender.split('@')[0]}_
+│ _*•Name:*_ _${m.pushName}_
+│ _*•Number:*_ _${sender.split('@')[0]}_
 ├─────────────────────
-│ _*Bot Name:*_ _Bens - MD_
-│ _*Created By:*_ _Team Tabrak Lurus_
+│ _*•Bot Name:*_ _${global.botname}_
+│ _*•Created By:*_ _Team Tabrak Lurus_
+├─────────────────────
+│ _*•Show AllMenu:*_ ${prefix}allmenu
+│ _*•Show About:*_ ${prefix}about
+└─────────────────────`
+
+sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© Team Tabrak Lurus', thumbnailUrl: "${global.thumbnail}", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+}
+break
+case prefix+"allmenu": case prefix+"menuall": {
+                let text = `
+_*>Hello User<*_
+_Bot ini masih dalam perkembangan, wajar jika fitur sedikit_
+
+┌─────────────────────
+│ _*•Name:*_ _${m.pushName}_
+│ _*•Number:*_ _${sender.split('@')[0]}_
+├─────────────────────
+│ _*•Bot Name:*_ _${global.botname}_
+│ _*•Created By:*_ _Team Tabrak Lurus_
 └─────────────────────
 
 _*-MAIN MENU-*_
@@ -140,16 +159,32 @@ ${prefix}owner
 ${prefix}sc
 ${prefix}menfes
 
+_*-OTHER MENU-*_
+${prefix}menu
+${prefix}about
+
 _*-OWNER MENU-*_
 ${prefix}broadcast
 > (Eval)
 $ (Exec)`
 
-sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: 'Bens - MD', body: '© Team Tabrak Lurus', thumbnail: fs.readFileSync("./src/dep.jpg"), sourceUrl: 'https://youtube.com/playlist?list=RDwjWmfnvIrDw&playnext=1&si=MgY1RAkwmw43y80B', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© Team Tabrak Lurus', thumbnailUrl: "${global.thumbnail}", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
+}
+break
+case prefix+"about": {
+                let text = `
+┌─────────────────────
+│ _*•BotName:*_ _${global.botname}_
+│ _*•Owner:*_ _MannHost_
+│ _*•Libary:*_ _Baileys_
+│ _*•Created:*_ _Team Tabrak Lurus_
+└─────────────────────
+
+sock.sendMessage(from, {text: text, contextInfo: { externalAdReply: {  title: '${global.botname}', body: '© Team Tabrak Lurus', thumbnailUrl: "${global.thumbnail}", sourceUrl: 'https://tiktok.com/@hyugimura', mediaType: 1, showAdAttribution: true, renderLargerThumbnail: true }}}, {quoted: m})
 }
 break
 case prefix+'sc': {
-  reply('_*Script: https://github.com/WhyDepin/baileys-bot-whatsapp*_')
+  reply('_*Script: https://github.com/MannOffc/Yamada-By-MannHost*_')
   break
 }
  case prefix+"owner": {
