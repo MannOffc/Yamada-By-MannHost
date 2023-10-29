@@ -22,7 +22,7 @@ var config = require("../config.js")
 const func = require("../lib/function.js")
 
 //singkat
-let evalOwn = ['6283896302781@s.whatsapp.net', '6283877118785@s.whatsapp.net']
+let evalOwn = ['62896296205744@s.whatsapp.net', '62896296205744@s.whatsapp.net']
 var icon = fs.readFileSync("./src/yamada.jpg")
 
 module.exports = async(sock, m, store) => {
