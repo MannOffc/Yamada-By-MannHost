@@ -8,9 +8,9 @@ global.prefix =   "/^[°•π÷×¶∆£¢€¥®™+✓_=|/~!?@#%^&.©^]/i"
 global.pairingNum = "62896296205744"//contoh: 62xxxx
 global.versisc = "1.0.0"
 global.tiktok = "tiktok.com/@hyugimura"
-global.gopay = "-"
-global.dana = "-"
-global.pulsa = "-"
+global.gopay = "6289509419214"
+global.dana = "nobody"
+global.pulsa = "6289509419214"
 global.thumbnail = "https://telegra.ph/file/8305331c272fa4de38a7f.jpg"
 
 global.lol = 'haikalgans'
