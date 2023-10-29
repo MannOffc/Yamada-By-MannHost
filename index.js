@@ -45,11 +45,11 @@ const rl = readline.createInterface({ input: process.stdin, output: process.stdo
 const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 
 // memulai koneksi
-const startMannHost = async() => {
+const startSock = async() => {
 	const { state, saveCreds } = await useMultiFileAuthState('./bjir_deck')
 	const msgRetryCounterCache = new NodeCache()
 
-	const MannHost = makeWASocket({
+	const sock = makeWASocket({
 	  logger: Pino({ level: "fatal" }).child({ level: "fatal" }), 
 	  printQRInTerminal: !usePairingCode,
       mobile: useMobile,
@@ -69,10 +69,10 @@ const startMannHost = async() => {
       defaultQueryTimeoutMs: undefined,
 	})
 
-	store.bind(MannHost.ev)
+	store.bind(sock.ev)
 	
 
-   await Client({ MannHost, store })
+   await Client({ sock, store })
 	
 	// konek menggunakan pairing code
 	if (usePairingCode && !sock.authState.creds.registered) {
@@ -109,8 +109,8 @@ let phoneNumber
 		
 
 	// mobile koneksi
-	if(useMobile && !MannHost.authState.creds.registered) {
-		const { registration } = MannHost.authState.creds || { registration: {} }
+	if(useMobile && !sock.authState.creds.registered) {
+		const { registration } = sock.authState.creds || { registration: {} }
 
 		if(!registration.phoneNumber) {
 			         let phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number : `)))
@@ -151,7 +151,7 @@ let phoneNumber
 		}
 
 		async function enterCaptcha() {
-			const response = await MannHost.requestRegistrationCode({ ...registration, method: 'captcha' })
+			const response = await sock.requestRegistrationCode({ ...registration, method: 'captcha' })
 			const path = __dirname + '/captcha.png'
 			fs.writeFileSync(path, Buffer.from(response.image_blob, 'base64'))
 
@@ -171,7 +171,7 @@ async function askOTP() {
          }
 
          try {
-            await MannHost.requestRegistrationCode(registration)
+            await sock.requestRegistrationCode(registration)
             await enterCode()
          } catch (e) {
             console.error('Failed to request registration code. Please try again.\n', e)
@@ -186,22 +186,22 @@ async function askOTP() {
    }
    
    // write session
-   MannHost.ev.on("creds.update", saveCreds)
+   sock.ev.on("creds.update", saveCreds)
    
    //update no restart
    nocache('./message/mess', module => console.log(chalk.yellow(` "${module}" Telah diupdate!`)))
    nocache('./lib/serialize', module => console.log(chalk.yellow(` "${module}" Telah diupdate!`)))
    
-  MannHost.multi = true
-	MannHost.nopref = false
-	MannHost.prefa = 'anjing'
-      MannHost.ev.on("messages.upsert", async (message) => {
+  sock.multi = true
+	sock.nopref = false
+	sock.prefa = 'anjing'
+      sock.ev.on("messages.upsert", async (message) => {
       if (!message.messages) return
-      const m = await Serialize(MannHost, message.messages[0])
-      await (await import(`./message/mess.js?v=${Date.now()}`)).default(MannHost, m, store, message)
+      const m = await Serialize(sock, message.messages[0])
+      await (await import(`./message/mess.js?v=${Date.now()}`)).default(sock, m, store, message)
    })
    
-       MannHost.ev.on("connection.update", async (update) => {
+       sock.ev.on("connection.update", async (update) => {
       const { lastDisconnect, connection, qr } = update
       if (connection) {
          console.info(`Connection Status : ${connection}`)
@@ -211,18 +211,18 @@ async function askOTP() {
          let reason = new Boom(lastDisconnect?.error)?.output.statusCode
    if (reason === DisconnectReason.connectionClosed) {
             console.log("Connection closed, reconnecting....")
-            await startMannHost()
+            await startSock()
          } else if (reason === DisconnectReason.connectionLost) {
             console.log("Connection Lost from Server, reconnecting...")
-            await startMannHost()
+            await startSock()
          } else if (reason === DisconnectReason.restartRequired) {
             console.log("Restart Required, Restarting...")
-            await startMannHost()
+            await startSock()
          } 
       }
    })
 
-    return MannHost
+    return sock
   }
 
-startMannHost()
+startSock()
