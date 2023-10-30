@@ -1,6 +1,7 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
+global.ownername = 'MannHost'
 global.botname = 'Yamada - MD'
 global.namabot = 'Yamada - MD'//setting bot name
 global.owner = ["62896296205744"]//setting owner
