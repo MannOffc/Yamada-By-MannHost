@@ -188,7 +188,7 @@ case prefix+'sc': {
   break
 }
  case prefix+"owner": {
-   sendContact(from, `${global.owner}@s.whatsapp.net`, 'WhyDepin', m)
+   sendContact(from, `${global.owner}@s.whatsapp.net`, 'MannHost', m)
  }
  break
  
